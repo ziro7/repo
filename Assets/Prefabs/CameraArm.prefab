@@ -137,12 +137,13 @@ MonoBehaviour:
   cameraMain: {fileID: 4013419711492430}
   player: {fileID: 0}
   cameraArm: {fileID: 4135882846557058}
-  mouseSensitivity: 10
+  mouseSensitivity: 8
   mouseYPosition: 1
-  moveSpeed: 2
+  moveSpeed: 3
+  zoom: -6
   zoomSpeed: 2
   zoomMin: -2
-  zoomMax: -10
+  zoomMax: -12
   rotationSpeed: 5
 --- !u!124 &124860991384920550
 Behaviour:

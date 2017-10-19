@@ -6,18 +6,19 @@ public class CameraFollow : MonoBehaviour {
 
 	public Transform cameraMain, player, cameraArm;
 
-	private float mouseX, mouseY;
+	private float mouseX = 90;
+	private float mouseY = 0;
 	public float mouseSensitivity = 10f;
 	public float mouseYPosition = 1f;
 
 	private float moveFB, moveLR;
-	public float moveSpeed = 2f;
+	public float moveSpeed = 1f;
 
-	private float zoom;
+	[SerializeField] private float zoom = -6;
 	public float zoomSpeed = 2;
 
 	public float zoomMin = -2f;
-	public float zoomMax = -10f;
+	public float zoomMax = -12f;
 
 	public float rotationSpeed = 5f;
 
@@ -27,7 +28,7 @@ public class CameraFollow : MonoBehaviour {
 	void Start()
 	{
 
-		zoom = -3;
+
 
 	}
 
@@ -51,7 +52,7 @@ public class CameraFollow : MonoBehaviour {
 			mouseY -= Input.GetAxis("Mouse Y") * mouseSensitivity;
 		}
 
-		mouseY = Mathf.Clamp(mouseY, -60f, 60f);
+		mouseY = Mathf.Clamp(mouseY, -40f, 60f);
 		cameraMain.LookAt(cameraArm);
 		cameraArm.localRotation = Quaternion.Euler(mouseY, mouseX, 0);
 
