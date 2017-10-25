@@ -250,7 +250,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!108 &108898398655814876
 Light:
@@ -263,7 +263,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 2
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -299,9 +299,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13f5a760c7b32640bd7cbed6b8c8d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
   speed: 5
+  isMagical: 1
+  minDamage: 35
+  maxDamage: 50
   particle: {fileID: 198141096960053646, guid: 8ba4b47b8467325408cf0214fcf1cbe2, type: 2}
+  spotLight: {fileID: 1133936973273730}
 --- !u!135 &135138718386380094
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -373,7 +376,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 520334960
+  randomSeed: 728263221
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3616,7 +3619,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1604113681
+  randomSeed: 523095873
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6818,7 +6821,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1592400874
+  randomSeed: 3323234
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10032,7 +10035,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 473409231
+  randomSeed: 496082612
   InitialModule:
     serializedVersion: 3
     enabled: 1

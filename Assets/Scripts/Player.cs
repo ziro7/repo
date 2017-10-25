@@ -6,7 +6,7 @@ using UnityEngine.AI;
 namespace Characters
 {
 	[SelectionBase]
-	public class Character : MonoBehaviour
+	public class Player : MonoBehaviour
 	{
 		//[Header("Capsule Collider")]
 		//[SerializeField] Vector3 colliderCenter = new Vector3(0, 0, 0);

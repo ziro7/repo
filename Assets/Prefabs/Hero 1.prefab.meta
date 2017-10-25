@@ -1,8 +1,6 @@
 fileFormatVersion: 2
-guid: 0f0bdb0b9350df04e951b5775f605cb1
-labels:
-- SceneStartUp
-timeCreated: 1508444641
+guid: c95f7f69b2c64b84fb8a5b2c40ddc779
+timeCreated: 1508965514
 licenseType: Free
 NativeFormatImporter:
   mainObjectFileID: 100100000

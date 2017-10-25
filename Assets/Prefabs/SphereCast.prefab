@@ -299,8 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13f5a760c7b32640bd7cbed6b8c8d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  speed: 5
+  damage: 0
+  speed: 0
   particle: {fileID: 198141096960053646, guid: 8ba4b47b8467325408cf0214fcf1cbe2, type: 2}
 --- !u!135 &135138718386380094
 SphereCollider:
@@ -310,7 +310,7 @@ SphereCollider:
   m_GameObject: {fileID: 1707047284264566}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

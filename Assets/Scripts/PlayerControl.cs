@@ -6,12 +6,16 @@ namespace Characters
 { 
 	public class PlayerControl : MonoBehaviour {
 
+		public Transform parent;
 		public Transform castSocket;
 		public GameObject fireball;
 		public GameObject fireballCast;
+	
 
 		// Use this for initialization
 		void Start() {
+
+
 
 		}
 
@@ -26,15 +30,15 @@ namespace Characters
 		
 		void LaunchFireball()
 		{
-			GameObject obj = Instantiate(fireball, castSocket.position, castSocket.rotation) as GameObject;
+			GameObject obj = Instantiate(fireball, castSocket.position, castSocket.rotation, parent) as GameObject;
 			obj.name = "fireball";
 		}
 
 		IEnumerator CastFireball()
 		{
 			StartCoroutine(CastingFireball());
+			yield return new WaitForSeconds(1.5f);
 			LaunchFireball();
-			yield return new WaitForSeconds(0.5f);
 		}
 
 		IEnumerator CastingFireball()
@@ -43,7 +47,6 @@ namespace Characters
 			yield return new WaitForSeconds(1.5f); //todo affected by haste
 			DestroyObject(obj);
 		}
-
-
+		
 	}
 }
