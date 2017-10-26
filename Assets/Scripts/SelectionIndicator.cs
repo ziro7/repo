@@ -15,10 +15,10 @@ public class SelectionIndicator : MonoBehaviour {
 	void Update()
 	{
 
-		if (mouseManager.hoveredObject != null)
+		if (mouseManager.selectedObject != null)
 		{
 			//tager kun første renderers størrelse - så kan være et problem med flerer renderer.
-			Bounds bigBounds = mouseManager.hoveredObject.GetComponentInChildren<Renderer>().bounds;
+			Bounds bigBounds = mouseManager.selectedObject.GetComponentInChildren<Renderer>().bounds;
 
 			float diameter = bigBounds.size.z;
 			diameter *= 1.25f;

@@ -13,15 +13,17 @@ namespace Characters
 		[SerializeField] AudioClip[] damageSounds;
 		[SerializeField] AudioClip[] deathSounds;
 		//[SerializeField] float deathVanishSeconds = 2.0f;
-		//[SerializeField] float resisdencePrLevel = 30f;
-		//[SerializeField] float maxResistance = 360f;
+		[SerializeField] float resisdencePrLevel = 30f;
+		[SerializeField] float maxResistance = 360f;
 		[SerializeField] float hitPenaltyBoss = 0.16f;
 		[SerializeField] float hitpenalty2levels = 0.05f;
 		[SerializeField] float hitpenalty1levels = 0.03f;
 		private float health; 
-		//[SerializeField] float doubleDamagePenetration = 100f;
-		//[SerializeField] float crushingBlowChance = 0.1f; 
-		//[SerializeField] float glancingBlowChance = 0.25f;
+		[SerializeField] float doubleDamagePenetration = 100f;
+		[SerializeField] float crushingBlowChance = 10f;
+		[SerializeField] float crushingBlowMultiplier = 1.5f;
+		[SerializeField] float glancingBlowChance = 25f;
+		[SerializeField] float glancingBlowMultiplier = 0.5f;
 
 		GameObject parent;
 
@@ -34,11 +36,16 @@ namespace Characters
 
 		public float healthAsPercentage { get { return currentHealthPoints / health; } }
 		public float Health { get { return currentHealthPoints; } }
-		//public float ResisdencePrLevel { get { return resisdencePrLevel; } }
+		public float ResisdencePrLevel { get { return resisdencePrLevel; } }
+		public float MaxResistance { get { return maxResistance; } }
 		public float HitPenaltyBoss { get { return hitPenaltyBoss; } }
 		public float Hitpenalty2levels { get { return hitpenalty2levels; } }
 		public float HitPenalty1levels { get { return hitpenalty1levels; } }
-		//public float DoubleDamagePenetration { get { return doubleDamagePenetration; } }
+		public float DoubleDamagePenetration { get { return doubleDamagePenetration; } }
+		public float CrushingBlowChance { get { return crushingBlowChance; } }
+		public float GlancingBlowChance { get { return glancingBlowChance; } }
+		public float CrushingBlowMultiplier { get { return crushingBlowMultiplier; } }
+		public float GlancingBlowMultiplier { get { return glancingBlowMultiplier; } }
 
 		void Start()
 		{

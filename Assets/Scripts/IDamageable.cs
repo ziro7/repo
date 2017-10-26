@@ -1,5 +1,5 @@
 ﻿
 public interface IDamageable{
 
-	void TakeDamage(float damageDone);
+	void TakeDamage(float damageDone, bool isMagical);
 }

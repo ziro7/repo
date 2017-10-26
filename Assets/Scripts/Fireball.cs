@@ -53,7 +53,6 @@ public class Fireball : MonoBehaviour {
 
 			transform.LookAt(target.transform);
 			transform.Translate(0.0f, 0.0f, speed * Time.deltaTime);
-			Debug.Log(target);
 
 		}
 		
@@ -61,14 +60,13 @@ public class Fireball : MonoBehaviour {
 
 	void OnTriggerEnter (Collider collider)
 	{
-		Debug.Log(collider + " was hit");
-
+		
 		Component damagableComponent = collider.gameObject.GetComponent(typeof(IDamageable));
 		if (damagableComponent)
 		{
 			float damageDone = DamageFromMinMax(minDamage, maxDamage);
 			Debug.Log("damage from fireball: " + damageDone);
-			(damagableComponent as IDamageable).TakeDamage(damageDone);
+			(damagableComponent as IDamageable).TakeDamage(damageDone, true);
 		}
 				
 		//this.GetComponent<AudioSource>().PlayOneShot(audiotHit);

@@ -17,27 +17,10 @@ public class Damage : MonoBehaviour, IDamageable
 
 		//info from this components gameObject
 		character = GetComponent<Character>();
-		//hitChance = transform.parent.gameObject.GetComponent<Character>().HitChance;
-		//critChance = transform.parent.gameObject.GetComponent<Character>().CritChance;
-		//critMultiplier = transform.parent.gameObject.GetComponent<Character>().CritMultiplier;
-		//level = transform.parent.gameObject.GetComponent<Character>().Level;
-		//charPenetration = transform.parent.gameObject.GetComponent<Character>().Penetration;
-		//inteligence = transform.parent.gameObject.GetComponent<Character>().Inteligence;
 
 		//info from attacker.
 		player = GameObject.FindObjectOfType<Player>();
-		//target = mouseManager.hoveredObject;
-		//targetLevel = target.GetComponent<Character>().Level;
-		//resistanceToSpells = target.GetComponent<Character>().ResistanceToSpells;
-		//hitPenaltyBoss = target.GetComponent<HealthSystem>().HitPenaltyBoss;
-		//hitpenalty2levels = target.GetComponent<HealthSystem>().Hitpenalty2levels;
-		//hitpenalty1levels = target.GetComponent<HealthSystem>().HitPenalty1levels;
-		//doubleDamagePenetration = target.GetComponent<HealthSystem>().DoubleDamagePenetration;
-		//resisdencePrLevel = target.GetComponent<HealthSystem>().ResisdencePrLevel;
-
-		//mouseManager
-		//mouseManager = GameObject.FindObjectOfType<MouseManager>();
-
+		
 		//HealthSystem
 		aIHealthSystem = GetComponent<AIHealthSystem>();
 	}
@@ -47,23 +30,26 @@ public class Damage : MonoBehaviour, IDamageable
 		
 	}
 
-	public void TakeDamage(float damage)
+	public void TakeDamage(float damage, bool isMagical)
 	{
-		Debug.Log("Damage in Damage - TakeDamage start at: " + damage);
-		float damageDone = CalculateDamage(damage);
+		//Debug.Log("Damage in Damage - TakeDamage start at: " + damage);
+		float damageDone = CalculateDamage(damage, isMagical);
 		aIHealthSystem.ReduceHealth(damageDone);
 	}
 
-	private float CalculateDamage(float damage)
+	private float CalculateDamage(float damage, bool isMagical)
 	{
 		float hitMultiplier = HitMultiplier();
 		float multiplierOnCrit = MultiplierOnCrit();
-		//float damage = DamageFromMinMax(minDamage, maxDamage);
-		//float damageDiffFromPenetrationAndResistance = DamageDiffFromPenetrationAndResistance(target, character);
-		//float multiplierFromLevelDifference = MultiplierFromLevelDifference(target, character);
+		float damageDiffFromPenetrationAndResistance = DamageDiffFromPenetrationAndResistance(isMagical);
+		float damageDiffFromMeleeCombat = DamageDiffFromMeleeCombat(isMagical);
 
-		float damageDone = hitMultiplier * damage * multiplierOnCrit; // * reducedDamageFromResistance * multiplierFromLevelDifference;
-		Debug.Log("damageDone after Calc was: " + damageDone);
+		float damageDone = damage * hitMultiplier * multiplierOnCrit * damageDiffFromPenetrationAndResistance * damageDiffFromMeleeCombat;
+		//Debug.Log("hitMultiplier: " + hitMultiplier);
+		//Debug.Log("multiplierOnCrit: " + multiplierOnCrit);
+		//Debug.Log("damageDiffFromPenetration: " + damageDiffFromPenetrationAndResistance);
+		//Debug.Log("damageDiffFromMeleeCombat: " + damageDiffFromMeleeCombat);
+
 		return damageDone;
 	}
 
@@ -95,10 +81,9 @@ public class Damage : MonoBehaviour, IDamageable
 		hitChance = player.HitChance;
 	}
 
-	Debug.Log("Hvad er hitchance: " + hitChance);
-	float randomNumber = Random.Range(0, 100);
-	Debug.Log("Hvad er random: " + randomNumber);
-	if (randomNumber <= (1-hitChance*100))
+	float randomNumber = Random.Range(0, 101);
+
+	if (randomNumber > (hitChance*100))
 	{
 		return 0;
 	}
@@ -111,9 +96,9 @@ public class Damage : MonoBehaviour, IDamageable
 
 	private float MultiplierOnCrit()
 	{
-		float randomNumber = Random.Range(0, 1);
+		float randomNumber = Random.Range(0, 101);
 
-		if (randomNumber <= (1 - player.CritChance))
+		if (randomNumber > (player.CritChance*100))
 		{
 			return 1;
 		}
@@ -123,61 +108,66 @@ public class Damage : MonoBehaviour, IDamageable
 		}
 	}
 
-	/* private float DamageDiffFromPenetrationAndResistance(int level, int targetLevel, float resisstanceToSpell, float resisdencePrLevel, float charPenetration);
+	private float DamageDiffFromPenetrationAndResistance(bool isMagical)
 	{
 		if (isMagical) 
 		{
-			float resistance = resistanceToSpells - levelDifference(level, targetLevel) * resisdencePrLevel;
+			float resistance = character.ResistanceToSpells + levelDifference() * aIHealthSystem.ResisdencePrLevel;
 					
-			return (1 - (resistance/maxResistance) + (charPenetration/doubleDamagePenetration);
-		//eksempel 1 - 90/360 + 20/100 = 1-0,25+0,2 = 0,95
-		//eksempel 1 - 0/360 + 30/100 = 1-0+0,3 = 1,3
+			return (1 - (resistance / aIHealthSystem.MaxResistance) + (character.Penetration/aIHealthSystem.DoubleDamagePenetration));
+		
+		//eksempel 1 - 90/360 + 5/100 = 1-0,25+0,05 = 0,80
+		//eksempel 2 - 0/360 + 30/100 = 1-0+0,3 = 1,3
 
 		//target 58 - inflicter 60 / resist 90 / penn 20
 		//eksempel  - (90-2*30)/360 + 20/100 = 1-0,0833+0,2 = 1,2833
 		
 		} else
 		{
-			Debug.log("Not implemented non magical damage")
+			return 1;
 		}
 	}
 
-	private float MultiplierFromLevelDifference(GameObject target, Character character);
+	private float DamageDiffFromMeleeCombat(bool isMagical)
 	{
-		//skal nok lige se om de er melee
-		float randomNumber = Random.Range(0, 1);
-		float blockChance = target.blockChance;
+		if (isMagical == false)
+		{
+			float randomNumber = Random.Range(0, 100);
+			float blockChance = character.BlockChance;
 
-		if ((target.level-2) > character.level)
-		{
-			//crushingBlow possible
-			if (randomNumber< (1-crushingBlowChance))
+			if ((character.Level - 2) > player.Level)
 			{
-			return 1;
-			} 
-			else
+				//crushingBlow possible
+				if (randomNumber < (aIHealthSystem.CrushingBlowChance))
+				{
+					return aIHealthSystem.CrushingBlowMultiplier;
+				}
+				else
+				{
+					return 1; //could be crushing hit - but is not
+				}
+			} else if ((character.Level + 2) < player.Level)
 			{
-			return 1,5;
-			} 
-		} else if ((target.level+2) < character.level)
-		{
-			
-			//GlancingBlow possible 
-			if (randomNumber< (1-glancingBlowChance))
+
+				//GlancingBlow possible 
+				if (randomNumber < (aIHealthSystem.GlancingBlowChance))
+				{
+					return aIHealthSystem.GlancingBlowMultiplier;
+				}
+				else
+				{
+					return 1; //could be Glanicing - but is not
+				}
+
+			} else
 			{
-			return 1;
-			} 
-			else
-			{
-			return 0,5;
-			} 
+				return 1; //Can't be either glancing or crushing
+			}
 
 		} else
 		{
-		return 1;
+			return 1;  //Is not melee damage.
 		}
-		
 	}
 
-*/
 }
