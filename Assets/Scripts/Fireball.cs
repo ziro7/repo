@@ -51,7 +51,7 @@ public class Fireball : MonoBehaviour {
 		if (canMove)
 		{
 
-			transform.LookAt(target.transform);
+			//transform.LookAt(target.transform);
 			transform.Translate(0.0f, 0.0f, speed * Time.deltaTime);
 
 		}
